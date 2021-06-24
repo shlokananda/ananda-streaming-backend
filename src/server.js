@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const { graphqlHTTP } = require("express-graphql");
 const logger = require("./core/logger");
 const { dbConnectionString } = require("./configs/server-config.js");
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
+const HOST = "0.0.0.0";
 // GrahpQL
 const graphqlSchema = require("./schemas/index");
 
@@ -18,8 +19,8 @@ const extensions = ({ context }) => {
 // app.use(logger);
 
 // DB Connection Success
-app.listen(port, async () => {
-  console.log("server is running ", port);
+app.listen(PORT, HOST, async () => {
+  console.log(`Running on http://${HOST}:${PORT}`);
   await mongoose.connect(dbConnectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
