@@ -19,8 +19,15 @@ const extensions = ({ context }) => {
 // app.use(logger);
 
 // DB Connection Success
-app.listen(PORT, HOST, async () => {
-  console.log(`Running on http://${HOST}:${PORT}`);
+// app.listen(PORT, HOST, async () => {
+//   console.log(`Running on http://${HOST}:${PORT}`);
+//   await mongoose.connect(dbConnectionString, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+// });
+app.listen(PORT, async () => {
+  console.log(`Running on ${PORT}`);
   await mongoose.connect(dbConnectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -31,6 +38,12 @@ app.listen(PORT, HOST, async () => {
 mongoose.connection.on(
   "error",
   console.error.bind(console, "MongoDB connection error:")
+);
+
+// DB Connection Success
+mongoose.connection.on(
+  "success",
+  console.log.bind(console, "MongoDB connected successfully!")
 );
 
 // GraphQL Test Call
